@@ -5,3 +5,6 @@ export const SIDEBAR_MENU = [
     { name: DISCUSSION_FORM, href: "/" },
     { name: MARKET_STORIES, href: "/market-stories" },
 ];
+
+
+export const MOBILEVIEW_WIDTH = 760;

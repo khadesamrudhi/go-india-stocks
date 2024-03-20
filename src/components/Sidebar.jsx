@@ -1,23 +1,32 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {  useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import * as CONSTANTS from "@/constants";
 
 import { usePathname } from "next/navigation";
+import useDeviceSize from "@/useDeviceSize";
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const [width, height] = useDeviceSize();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <div className="flex">
-      <div className={isOpen?"flex-auto w-80 bg-blue-800 h-screen":"hidden"}>
+    <div
+      className={
+        width < CONSTANTS.MOBILEVIEW_WIDTH ? "flex absolute" : "flex"
+      }
+    >
+      <div
+        className={isOpen ? "flex-auto w-80 bg-blue-800 h-screen" : "hidden"}
+      >
         <div className="flex flex-col">
           <div className="flex p-4 border-b-2">
             <div className="flex justify-center">
@@ -55,9 +64,14 @@ const Sidebar = () => {
       </div>
       <div className="flex-none w-4 h-screen">
         <div className="flex items-center h-screen">
-            <div onClick={() => toggleSidebar()} className="flex h-24 bg-blue-800 w-full items-center hover:bg-blue-700" >
-                <span className="text-slate-200 select-none text-center">{">"}</span>
-            </div>
+          <div
+            onClick={() => toggleSidebar()}
+            className="flex h-24 bg-blue-800 w-full items-center hover:bg-blue-700"
+          >
+            <span className="text-slate-200 select-none text-center">
+              {isOpen ? "<" : ">"}
+            </span>
+          </div>
         </div>
       </div>
     </div>
